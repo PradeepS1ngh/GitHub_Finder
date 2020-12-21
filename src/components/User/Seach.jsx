@@ -1,41 +1,33 @@
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 
-class Search extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            text:""
-        }
-    }
+const Search = ({setAlert,searchUser,clearUser,users }) => {
 
-    onSubmit =(e) =>{
+    const[text,setText] = useState('');
+
+    const onSubmit = (e) => {
         e.preventDefault();
-        if(this.state.text == ""){
-            this.props.setAlert("Please Enter UserName",'light');
-        }else{
-            this.props.searchUser(this.state.text);
-            this.setState({text:""})
+        if (text == "") {
+            setAlert("Please Enter UserName", 'light');
+        } else {
+            searchUser(text);
+            setText('');
         }
-        
+
     }
-    onChange = (e) =>{
-        this.setState({
-            [e.target.name] : e.target.value
-        });
-    }
-    render() { 
-        return ( 
-            <div >
-                <form onSubmit={this.onSubmit} className='form'>
-                    <input type="text" name='text' placeholder='Search User....' onChange={this.onChange} value={this.state.text}/>
-                    <input type="submit" value="Search" className='btn btn-dark btn-block'/>
-                </form>
-                {(this.props.users.length != 0) ? <button className="btn btn-light btn-block" onClick={this.props.clearUser}>Clear</button> : <></>}
-            </div>
-        );
-    }
+    const onChange = (e) => setText(e.target.value);
+
+    return (
+        <div >
+            <form onSubmit={onSubmit} className='form'>
+                <input type="text" name='text' placeholder='Search User....' onChange={onChange} value={text} />
+                <input type="submit" value="Search" className='btn btn-dark btn-block' />
+            </form>
+            {(users.length != 0) ? <button className="btn btn-light btn-block" onClick={clearUser}>Clear</button> : <></>}
+        </div>
+    );
+
 }
 
 export default Search;

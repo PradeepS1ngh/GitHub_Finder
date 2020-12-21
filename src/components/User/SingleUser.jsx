@@ -1,33 +1,68 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 
-class SingleUser extends Component {
+import { Link } from 'react-router-dom';
+import Repos from './Repos'
 
-    componentDidMount() {
-        this.props.getUser(this.props.match.params.login);
-    }
+const SingleUser = ({ userName, loading, repos, getUser, getUserRepo , match}) => {
 
-    render(props) {
-        const {
-            bio,
-            company,
-            email,
-            events_url,
-            followers,
-            followers_url,
-            following,
-            following_url,
-            gists_url,
-            html_url,
-            login,
-            name,
-            public_gists,
-            public_repos,
-            subscriptions_url,
-        } = this.props.userName;
+    useEffect(() => {
+        getUser(match.params.login);
+        getUserRepo(match.params.login);
+    },[])
 
-        const {loading} = this.props;
-        return <div>{name}</div>;
-    }
+    const {
+        bio,
+        company,
+        email,
+        location,
+        avatar_url,
+        followers,
+        following,
+        html_url,
+        login,
+        hireable,
+        name,
+        public_gists,
+        public_repos,
+    } = userName;
+
+    return <>
+        <Link to='/' className='btn btn-danger'>Back To Home</Link>
+            Hireable : { hireable ? <i className="fas fa-check-circle text-success"></i> : <i className="fas fa-times-circle text-danger"></i>}
+        <div className="card grid-2">
+            <div className="all-center">
+                <img src={avatar_url} className="round-img" alt="img" style={{ width: '150px' }} />
+                <h1>{name}</h1>
+                {location && <p>Location : {location}</p>}
+            </div>
+            <div>
+                {bio && <>
+                    <h3>Bio</h3>
+                    <p>{bio}</p>
+                </>}
+                <a href={html_url} className='btn btn-danger my-1'> View GitHub Profile</a>
+                <ul>
+                    <li>
+                        {email && <> Email : {email} </>}
+                    </li>
+                    <li>
+                        {login && <> UserName : {login}</>}
+                    </li>
+                    <li>
+                        {company && <> Company : {company}</>}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div className="card text-center">
+            <div className="badge badge-primary"> Followers : {followers}</div>
+            <div className="badge badge-success"> Following : {following}</div>
+            <div className="badge badge-light"> Public-Gists : {public_gists}</div>
+            <div className="badge badge-dark"> Public_Repos : {public_repos}</div>
+        </div>
+        <Repos repos={repos} />
+    </>;
+
 }
 
 export default SingleUser;

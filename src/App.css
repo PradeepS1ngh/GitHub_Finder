@@ -2,15 +2,15 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #dc3545;
+  --primary-color: #8a13fa;
   --dark-color: #333333;
-  --light-color: #f4f4f4;
-  --danger-color: #dc3545;
+  --light-color: #fcd773;
+  --danger-color: #7556ff;
   --success-color: #28a745;
 }
 
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; 
   margin: 0;
   padding: 0;
 }
