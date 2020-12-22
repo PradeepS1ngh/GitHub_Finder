@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect , useContext } from "react";
+
+import GithubContext from '../../context/github/githubContext'
 
 import { Link } from 'react-router-dom';
 import Repos from './Repos'
 
-const SingleUser = ({ userName, loading, repos, getUser, getUserRepo , match}) => {
+const SingleUser = ({match}) => {
+
+    const githubContext = useContext(GithubContext)
+    const { user , getUser ,loading ,getUserRepo , repos} = githubContext;
 
     useEffect(() => {
         getUser(match.params.login);
@@ -24,7 +29,7 @@ const SingleUser = ({ userName, loading, repos, getUser, getUserRepo , match}) =
         name,
         public_gists,
         public_repos,
-    } = userName;
+    } = user;
 
     return <>
         <Link to='/' className='btn btn-danger'>Back To Home</Link>

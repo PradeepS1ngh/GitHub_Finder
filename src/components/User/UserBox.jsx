@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useContext }from 'react';
 import User from './User';
+import GithubContext from '../../context/github/githubContext'
 
-function UserBox(props){ 
+function UserBox(){ 
+
+    const githubContext = useContext(GithubContext)
+    const {users , loading } = githubContext;
         return(
-
-            (props.loading == false) ? 
+            (loading == false) ? 
             <div style={ userStyle }>
-                {props.users.map((user,key) => { 
+                {users.map((user,key) => { 
                     return  <User user={user} key={key}/>
                 })}
             </div>
