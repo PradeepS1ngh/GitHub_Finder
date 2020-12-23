@@ -25,7 +25,7 @@ const Search = () => {
     const onChange = (e) => setText(e.target.value);
 
     return (
-        <div>
+        <div className="Search">
             <form onSubmit={onSubmit} className="form">
                 <input
                     type="text"
